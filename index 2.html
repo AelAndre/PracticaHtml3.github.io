@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica 3 - Bandas</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #0d6b9e;
+        }
+        #artist-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        #lyrics {
+            margin: 20px;
+            font-size: 18px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            width: 80%;
+            display: inline-block;
+            text-align: left;
+        }
+        #song-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            background-color: #008cba;
+            color: white;
+        }
+        button:hover {
+            background-color: #005f5f;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Artistas y Letras</h1>
+    <img id="artist-img" src="" alt="Imagen del artista">
+    <div id="song-title"></div>
+    <div id="lyrics"></div>
+    <br>
+    <button onclick="translateLyrics()">Traducir letra</button>
+    <button onclick="changeArtist()">Cambiar Artista</button>
+
+    <script>
+      
+        const artists = [
+            {
+                name: "Nirvana - Dumb",
+                image: "https://www.rollingstone.com/wp-content/uploads/2018/06/rs-nirvana-e9e22e4b-f7d9-4fc7-bd94-23c30084ce94.jpg",
+                song: "Nirvana - Dumb",
+                lyrics: `I'm not like them
+                        But I can pretend
+                        The sun is gone
+                        But I have a light
+                        The day is done
+                        But I'm having fun
+                        I think I'm dumb
+                        Or maybe just happy
+                        Think I'm just happy
+                        Think I'm just happy
+                        Think I'm just happy
+                        My heart is broke
+                        But I have some glue
+                        Help me inhale
+                        And mend it with you
+                        We'll float around
+                        And hang out on clouds
+                        Then we'll come down
+                        And have a hangover
+                        Have a hangover
+                        Have a hangover
+                        Have a hangover
+                        Skin the sun
+                        Fall asleep
+                        Wish away
+                        The soul is cheap
+                        Lesson learned
+                        Wish me luck
+                        Soothe the burn
+                        Wake me up
+                        I'm not like them
+                        But I can pretend
+                        The sun is gone
+                        But I have a light
+                        The day is done
+                        But I'm having fun
+                        I think I'm dumb
+                        Maybe just happy
+                        Think I'm just happy
+                        Think I'm just happy
+                        Think I'm just happy
+                        I think I'm dumb
+                        I think I'm dumb
+                        I think I'm dumb
+                        I think I'm dumb
+                        I think I'm dumb
+                        I think I'm dumb
+                        I think I'm dumb
+                        I think I'm dumb
+                        I think I'm dumb
+                        I think I'm dumb
+                        I think I'm dumb
+                        I think I'm dumb`,
+                translation: `No soy como ellos 
+                              Pero puedo fingir
+                              El Sol se ha ido
+                              Pero tengo una luz
+                              El día está terminado
+                              Pero me estoy divirtiendo
+                              Creo que soy tonto
+                              Tal vez solo feliz
+
+Creo que soy feliz
+Creo que soy feliz
+Creo que soy feliz
+
+Mi corazón está roto
+Pero tengo algo de pegamento
+Ayúdame a inhalar
+Y arreglarlo contigo
+
+Vamos a fluir por ahí
+Y pasar el rato en las nubes
+Entonces bajaremos
+Y tendremos resaca
+
+Tendremos resaca
+Tendremos resaca
+Tendremos resaca
+
+Piel de verano, caer dormido
+Deseos lejanos, el alma es barata
+Lección aprendida, deséame suerte
+Calma la quemadura, despiértame
+
+No soy como ellos
+Pero puedo fingir
+El Sol se ha ido
+Pero tengo una luz
+
+El día está terminado
+Pero me estoy divirtiendo
+Creo que soy tonto
+Tal vez solo feliz
+
+Tal vez solo feliz
+Tal vez solo feliz
+Tal vez solo feliz
+
+Creo que soy tonto
+Creo que soy tonto
+Creo que soy tonto
+Creo que soy tonto
+
+Creo que soy tonto
+Creo que soy tonto
+Creo que soy tonto
+Creo que soy tonto
+
+Creo que soy tonto
+Creo que soy tonto
+Creo que soy tonto
+Creo que soy tonto`
+            },
+            {
+                name: "Tool - Sober",
+                image: "https://www.dailybulletin.com/wp-content/uploads/migration/2017/201706/FEATURES_170619814_AR_0_BTCYLJBWWMXT.jpg",
+                song: "Tool - Sober",
+                lyrics: `There's a shadow just behind me
+Shrouding every step I take
+Making every promise empty
+Pointing every finger at me
+Waiting like a stalking butler
+Who upon the finger rests
+Murder now the pattern, must we
+Just because the son has come
+
+Jesus, won't you fucking whistle
+Something but the past and done?
+Jesus, won't you fucking whistle
+Something but the past and done?
+
+Why can't we not be sober?
+I just want to start this over
+Why can't we drink forever?
+I just want to start this over
+
+I am just a worthless liar
+I am just an imbecile
+I will only complicate you
+Trust in me and fall as well
+I will find a center in you
+I will chew it up and leave
+I will work to elevate you
+Just enough to bring you down
+
+Mother Mary, won't you whisper
+Something but the past and done?
+Mother Mary, won't you whisper
+Something but the past and done?
+
+Why can't we not be sober?
+I just want to start this over
+Why can't we sleep forever?
+I just want to start this over
+
+I am just a worthless liar
+I am just an imbecile
+I will only complicate you
+Trust in me and fall as well
+I will find a center in you
+I will chew it up and leave
+Trust me, trust me
+Trust me, trust me, trust me
+
+Why can't we not be sober?
+I just want to start things over
+Why can't we sleep forever?
+I just want to start this over
+
+I want what I want
+I want what I want
+I want what I want
+I want what I want`,
+                translation: `Hay una sombra justo detrás de mí
+Cubriendo cada paso que doy
+Haciendo cada promesa vacía
+Señalando con el dedo hacia mí
+Esperando como un mayordomo acechante
+Que sobre el dedo reposa
+Ahora el patrón es asesinato, ¿debemos?
+Solo porque el hijo ha llegado
+
+Jesús, ¿no puedes silbar malditamente
+Algo más que el pasado y lo hecho?
+Jesús, ¿no puedes silbar malditamente
+Algo más que el pasado y lo hecho?
+
+¿Por qué no podemos estar sobrios?
+Solo quiero empezar esto de nuevo
+¿Por qué no podemos beber por siempre?
+Solo quiero empezar esto de nuevo
+
+Solo soy un mentiroso sin valor
+Solo soy un imbécil
+Solo te complicaré
+Confía en mí y caerás también
+Encontraré un centro en ti
+Lo masticaré y lo dejaré
+Trabajaré para elevarte
+Lo suficiente para derribarte
+
+Madre María, ¿no puedes susurrar
+Algo más que el pasado y lo hecho?
+Madre María, ¿no puedes susurrar
+Algo más que el pasado y lo hecho?
+
+¿Por qué no podemos estar sobrios?
+Solo quiero empezar esto de nuevo
+¿Por qué no podemos dormir por siempre?
+Solo quiero empezar esto de nuevo
+
+Solo soy un mentiroso sin valor
+Solo soy un imbécil
+Solo te complicaré
+Confía en mí y caerás también
+Encontraré un centro en ti
+Lo masticaré y lo dejaré
+Confía en mí, confía en mí
+Confía en mí, confía en mí, confía en mí
+
+¿Por qué no podemos estar sobrios?
+Solo quiero empezar las cosas de nuevo
+¿Por qué no podemos dormir por siempre?
+Solo quiero empezar esto de nuevo
+
+Quiero lo que quiero
+Quiero lo que quiero
+Quiero lo que quiero
+Quiero lo que quiero`
+            },
+            {
+                name: "Led Zeppelin - Fool in the Rain",
+                image: "https://i.pinimg.com/736x/8a/c2/7e/8ac27e6734810fae798e6646a2e0c0a9.jpg",
+                song: "Led Zepellin - Fool in the Rain",
+                lyrics: `Oh, babe
+
+Well, there's a light in your eye that keeps shining
+Like a star that can't wait for night
+I hate to think I been blinded, baby
+Why can't I see you tonight?
+
+And the warmth of your smile starts a burning
+And the thrills of your touch give me fright
+And I'm shaking so much, really yearning
+Why don't you show up and make it alright?
+It's alright
+
+And if you promised you'd love so completely
+And you said you would always be true
+You swore that you never would leave me, baby
+Whatever happened to you?
+
+And you thought it was only in movies
+As you wish all your dreams would come true
+Hey, it ain't the first time believe me, baby
+I'm standing here feeling blue, blue
+Ah, yes, I'm blue
+
+Oh, babe
+
+Now, I will stand in the rain on the corner
+I watch the people go shuffling downtown
+Another ten minutes no longer
+And then I'm turning around, around
+
+And the clock on the wall's moving slower
+Oh, my heart it sinks to the ground
+And the storm that I thought would blow over
+Clouds the light of the love that I found, found
+
+Light of the love that I found
+Light of the love that I found
+Oh, that I found
+
+Hey babe
+
+Whoa, hand that ticks on the clock
+Just don't seem to stop when I'm thinking it over
+Whoa, tired of the light
+I just don't seem to find, have you wait, have you wait?
+
+Whoa, I see it in my dreams
+But I just don't seem to be
+I've got to get all, gotta get it all
+Gotta get it all, I've got to get all
+
+Oh, now my body is starting to quiver
+And the palms of my hands getting wet
+Oh, I got no reason to doubt you, baby
+It's all a terrible mess
+
+And I'll run in the rain 'til I'm breathless
+When I'm breathless I'll run 'til I drop, hey
+And the thoughts of a fool's scattered careless
+I'm just a fool waiting on the wrong block, oh yeah
+
+Hey now, oooh
+
+Light of the love that I found
+Light of the love that I found
+Light of the love that I
+Light of the love that I
+
+Light of the hey now
+Light of the hey now
+Light of the love that I found
+Light of the love that I found`,
+                translation: `Bueno, hay una luz en tus ojos que sigue brillando
+Como una estrella que no puede esperar la noche
+Odio pensar que estoy cegado, nena
+¿Por qué no puedo verte esta noche?
+
+Y el calor de tu sonrisa empieza a quemar
+Y los escalofríos de tu toque me asustan
+Y estoy temblando tanto, deseando de verdad
+¿Por qué no te apareces y haces que todo esté bien?
+Está bien
+
+Y si prometiste que amarías por completo
+Y dijiste que siempre serías sincera
+Juraste que nunca me dejarías, nena
+¿Qué te pasó?
+
+Y pensaste que solo pasaba en las películas
+Mientras deseabas que todos tus sueños se hicieran realidad
+Hey, no es la primera vez créeme, nena
+Estoy aquí de pie sintiéndome triste, triste
+Ah, sí, estoy triste
+
+Oh, nena
+
+Ahora, estaré en la lluvia en la esquina
+Veo a la gente ir arrastrándose al centro
+Otros diez minutos no más
+Y entonces me doy la vuelta
+
+Y el reloj en la pared va más lento
+Oh, mi corazón se hunde en el suelo
+Y la tormenta que pensé que pasaría
+Nubla la luz del amor que encontré, encontré
+
+La luz del amor que encontré
+La luz del amor que encontré
+Oh, la que encontré`
+            }
+        ];
+
+        let currentArtistIndex = 0;
+        let isTranslated = false;
+
+      
+        function showArtist(index) {
+            const artist = artists[index];
+            document.getElementById("artist-img").src = artist.image;
+            document.getElementById("song-title").innerText = artist.song;
+            document.getElementById("lyrics").innerText = artist.lyrics;
+            isTranslated = false;
+        }
+
+       
+        function translateLyrics() {
+            const artist = artists[currentArtistIndex];
+            if (!isTranslated) {
+                document.getElementById("lyrics").innerText = artist.translation;
+                isTranslated = true;
+            } else {
+                document.getElementById("lyrics").innerText = artist.lyrics;
+                isTranslated = false;
+            }
+        }
+
+      
+        function changeArtist() {
+            currentArtistIndex = (currentArtistIndex + 1) % artists.length;
+            showArtist(currentArtistIndex);
+        }
+
+       
+        showArtist(currentArtistIndex);
+    </script>
+
+</body>
+</html>
